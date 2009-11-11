@@ -17,6 +17,8 @@ use base qw(CHI::Test::Class);
 sub supports_clear          { 1 }
 sub supports_get_namespaces { 1 }
 
+my @all_test_keys;
+
 sub standard_keys_and_values : Test(startup) {
     my ($self) = @_;
 
@@ -28,6 +30,11 @@ sub standard_keys_and_values : Test(startup) {
     $self->{all_test_keys} = [ values(%$keys_ref), $self->extra_test_keys() ];
     $self->{all_test_keys_hash} =
       { map { ( $_, 1 ) } @{ $self->{all_test_keys} } };
+    @all_test_keys = @{$self->{all_test_keys}};
+}
+
+sub all_test_keys {
+    return @all_test_keys;
 }
 
 sub kvpair {
